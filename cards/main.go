@@ -6,4 +6,6 @@ func main() {
 
 	println(cards.toString())
 
+	cards.saveToDisk("my_cards")
+
 }

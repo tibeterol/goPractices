@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"io/ioutil"
+	"strings"
+)
 
 type deck []string
 
@@ -30,6 +33,10 @@ func deal(d deck, handSize int) (deck, deck) {
 
 func (d deck) toString() string {
 	return strings.Join([]string(d), ",")
-	//[]string(d) type conversion  deck i string dizisine cevirebiliyoruz bu sekilde. Zaten type deck aslinda string slice i oldugu icin string slicetan kalitim aliyo gibi dusunulebilir rahat bir sekilde tip donusumu yapildi. Sonrasinda kutuphane kullanilarak hepsi tek bir stringe donusturuldu
 
+}
+
+func (d deck) saveToDisk(fileName string) error {
+	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666) // 0666 kodu ile herkes bu dosyayi yazabilir ve okuyabilir bu yetkiyi vermis olduk
+	// writefile kullanimdan kaldirilmis ileride bu fonk. komple kaldirilabilir ya da duzenlenebilir demek bu. Kullanilmasi go tarafindan onerilmiyor. Alternatif olarak os kutuphanesinin os.Create i kullanilabilir
 }
