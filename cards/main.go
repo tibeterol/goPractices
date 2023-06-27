@@ -23,6 +23,10 @@ func main() {
 		fmt.Println(i, kart)
 	}
 
+	for i := 1; i <= 10; i++ { // 1 den 10 a kadar iterate
+		fmt.Println(i)
+	}
+
 	for i, sayi := range arraydizisi {
 		fmt.Println(i, sayi)
 	}
