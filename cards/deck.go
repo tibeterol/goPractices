@@ -1,5 +1,7 @@
 package main
 
+import "strings"
+
 type deck []string
 
 func newDeck() deck {
@@ -22,6 +24,12 @@ func (d deck) print() {
 	}
 }
 
-func deal(d deck, handSize int) (deck, deck) { // 2 tane deck tipinden return bekliyor
-	return d[:handSize], d[handSize:] // mesela 4 eleman var diyelim ve handSize 2 geldi bu 0. elemandan 2 dahil olmayacak sekilde al demek ilk return icin, 2.return icin 2 dahil hepsini al
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
+}
+
+func (d deck) toString() string {
+	return strings.Join([]string(d), ",")
+	//[]string(d) type conversion  deck i string dizisine cevirebiliyoruz bu sekilde. Zaten type deck aslinda string slice i oldugu icin string slicetan kalitim aliyo gibi dusunulebilir rahat bir sekilde tip donusumu yapildi. Sonrasinda kutuphane kullanilarak hepsi tek bir stringe donusturuldu
+
 }
