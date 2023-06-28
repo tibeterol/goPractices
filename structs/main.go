@@ -24,9 +24,8 @@ func main() {
 	}
 
 	//fmt.Printf("%+v", john)
-	p := &john // john structının adresi p pointerina atandi
 
-	p.updateName("Johny")
+	john.updateName("Johny") // john. diyerek kisayol kullanmis olduk fonksiyon receiver olarak bizden pointer beklemesine ragmen person verdim ve dogru calisti. Go arka tarafta bizim icin cevirmeyi yapiyor
 
 	john.print()
 }
@@ -35,6 +34,6 @@ func (p person) print() {
 	fmt.Printf("%+v", p)
 }
 
-func (pointerOfPerson *person) updateName(newFirstName string) { // *person person pointer tipi demek
-	(*pointerOfPerson).firstName = newFirstName // burada (*pointerOfPerson) ile pointerin isaret ettigi adresin degerine gidiyoruz. Yani structa ve structin nameini guncelliyoruz
+func (pointerOfPerson *person) updateName(newFirstName string) {
+	(*pointerOfPerson).firstName = newFirstName
 }
