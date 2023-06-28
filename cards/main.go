@@ -2,10 +2,12 @@ package main
 
 func main() {
 
-	cards := newDeck()
+	//cards := newDeck()
 
-	println(cards.toString())
+	//println(cards.toString())
 
-	cards.saveToDisk("my_cards")
+	readedCards := newDeckFromFile("my_cards")
+	readedCards.print()
+	//cards.saveToDisk("my_cards")
 
 }

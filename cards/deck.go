@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -37,6 +38,21 @@ func (d deck) toString() string {
 }
 
 func (d deck) saveToDisk(fileName string) error {
-	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666) // 0666 kodu ile herkes bu dosyayi yazabilir ve okuyabilir bu yetkiyi vermis olduk
-	// writefile kullanimdan kaldirilmis ileride bu fonk. komple kaldirilabilir ya da duzenlenebilir demek bu. Kullanilmasi go tarafindan onerilmiyor. Alternatif olarak os kutuphanesinin os.Create i kullanilabilir
+	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+
+}
+
+func newDeckFromFile(fileName string) deck {
+
+	bts, err := ioutil.ReadFile(fileName)
+
+	if err != nil {
+		println("Error : ", err)
+		os.Exit(1) // programi derhal kapatmasi icin 0 dan farkli bir deger girilmesi gerekiyor
+	}
+
+	stringArr := strings.Split(string(bts), ",")
+
+	return deck(stringArr)
+
 }
