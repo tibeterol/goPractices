@@ -25,7 +25,10 @@ func main() {
 
 	//fmt.Printf("%+v", john)
 
-	john.updateName("Johny") // john. diyerek kisayol kullanmis olduk fonksiyon receiver olarak bizden pointer beklemesine ragmen person verdim ve dogru calisti. Go arka tarafta bizim icin cevirmeyi yapiyor
+	john.updateName("Johny")
+
+	// slicelar mapler channellar falan hepsi reference type yani fnk.a parametre olarak verilse dahi pointersiz update yapilabiliyor cunku mesela slice icin bir slice olusturuldugunda arkada 1 array ve slice data type olusuyor ve slice arrayi point ediyor basindaki pointer ile pointer , capacity ve  lengthden olusuyo slice.
+	// int,string,struct falan bunlar value type ve bunlari guncellerken pointer kullanimi gerekli
 
 	john.print()
 }
