@@ -24,9 +24,17 @@ func main() {
 	}
 
 	//fmt.Printf("%+v", john)
+	p := &john // john structının adresi p pointerina atandi
+
+	p.updateName("Johny")
+
 	john.print()
 }
 
 func (p person) print() {
 	fmt.Printf("%+v", p)
+}
+
+func (pointerOfPerson *person) updateName(newFirstName string) { // *person person pointer tipi demek
+	(*pointerOfPerson).firstName = newFirstName // burada (*pointerOfPerson) ile pointerin isaret ettigi adresin degerine gidiyoruz. Yani structa ve structin nameini guncelliyoruz
 }
