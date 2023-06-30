@@ -1,29 +1,43 @@
 package main
 
-import (
-	"fmt"
-	"io"
-	"net/http"
-)
+import "fmt"
 
-type logWriter struct{}
+type shape interface {
+	calculateArea() float64
+}
+
+type triangle struct {
+	height float64
+	base   float64
+}
+
+type square struct {
+	sideLength float64
+}
 
 func main() {
 
-	resp, err := http.Get("http://google.com")
-	l := logWriter{}
-
-	if err == nil {
-
-		io.Copy(l, resp.Body)
-
+	t := triangle{
+		height: 7,
+		base:   3,
 	}
 
+	s := square{
+		sideLength: 10,
+	}
+
+	printArea(s)
+	printArea(t)
 }
 
-func (l logWriter) Write(bs []byte) (int, error) {
+func (t triangle) calculateArea() float64 {
+	return 0.5 * t.base * t.height
+}
 
-	fmt.Println(string(bs))
-	fmt.Println("boyut = ", len(bs))
-	return len(bs), nil
+func (s square) calculateArea() float64 {
+	return s.sideLength * s.sideLength
+}
+
+func printArea(sh shape) {
+	fmt.Println(sh.calculateArea())
 }
