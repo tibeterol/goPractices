@@ -2,15 +2,16 @@ package main
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"log"
 	"net/http"
 )
 
 type customer struct {
-	Name    string `json:"full_name"`
-	City    string `json:"city"`
-	ZipCode string `json:"zip_code"`
+	Name    string `json:"full_name" xml:"name"`
+	City    string `json:"city" xml:"city"`
+	ZipCode string `json:"zip_code" xml:"zip"`
 }
 
 func main() {
@@ -33,7 +34,14 @@ func getCustomers(w http.ResponseWriter, request *http.Request) {
 		{Name: "Betül", City: "İzmir", ZipCode: "35718"},
 	}
 
-	w.Header().Add("Content-Type", "application/json")
+	// sayet json ya da xml oldugunu headerda belirtmezsek response plain text olarak gozukuyor
 
-	json.NewEncoder(w).Encode(customerList)
+	if request.Header.Get("Content-Type") == "application/xml" {
+		w.Header().Add("Content-Type", "application/xml")
+		xml.NewEncoder(w).Encode(customerList)
+	} else { // json
+		w.Header().Add("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(customerList)
+	}
+
 }
