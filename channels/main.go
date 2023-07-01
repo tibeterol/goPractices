@@ -27,9 +27,17 @@ func main() {
 		go sendRequest(url, c)
 	}
 
-	for i := 0; i < len(urlList); i++ {
-		fmt.Println(<-c)
+	/*	for { // surekli istek atiyor. Channela her bilgi geldiginde dongu tekrar ediyor. Bunun aynisi asagidaki for loopunda
+		go sendRequest(<-c, c)
+	}*/
+
+	for l := range c {
+		go sendRequest(l, c)
 	}
+
+	/*	for i := 0; i < len(urlList); i++ {
+		fmt.Println(<-c)
+	}*/
 
 }
 
@@ -38,9 +46,9 @@ func sendRequest(url string, c chan string) {
 
 	if err != nil {
 		fmt.Println(url, " is not active")
-		c <- "Error"
+		c <- url
 	} else {
 		fmt.Println(url, " is active")
-		c <- "Success"
+		c <- url
 	}
 }
