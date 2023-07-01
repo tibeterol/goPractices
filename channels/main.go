@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 // go routinesler concurrencyi saglar. channellar go routineler arasi iletisimi saglar. channellar olmazsa calismiyor.
@@ -32,7 +33,13 @@ func main() {
 	}*/
 
 	for l := range c {
-		go sendRequest(l, c)
+
+		//dikkat edilmesi gereken 1 den fazla routine ayni degiskene birebir erismemesi gerekiyor. Yoksa yanlis calisiyor. Bunu onlemek icin func literal a parametre olarak l verildi
+		go func(link string) { // bu yapinin adi func literal
+			time.Sleep(5 * time.Second)
+			sendRequest(link, c)
+		}(l)
+
 	}
 
 	/*	for i := 0; i < len(urlList); i++ {
